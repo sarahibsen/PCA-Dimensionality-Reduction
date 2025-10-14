@@ -1,28 +1,42 @@
+# author : Sarah I. 
+# class : 488-01
+# Assignment : Homework 2
+# Resources : https://www.askpython.com/python/examples/mat-files-in-python
+#            https://builtin.com/machine-learning/pca-in-python
 import matplotlib as mp # for plotting 
 import pandas as pd
 from scipy.io import loadmat
 #from sklearn.preprocessing import StandardScalar
-#from sklearn.decomposition import PCA #to apply our pca 
+from sklearn.decomposition import PCA #to apply our pca 
 
 
 # load in the indian pines dataset
 indian_pines = loadmat('indianR.mat') # has 'X'
-#print(indian_pines) #sanity check
-
+x_raw = indian_pines['X']
 # load in the ground truth 
 groundtruth = loadmat('indian_gth.mat') # has 'gth' 
-#print(groundtruth) #sanity check 
+y_raw = groundtruth['gth']
+
 
 # indian pines data contains zeros
 
-pines_list = [[element for element in upperElement] for upperElement in indian_pines['X']]
-g_list = [[element for element in upperElement] for upperElement in groundtruth['gth']]
+x_transposed = x_raw.T 
+print(x_transposed.shape)
+y_flat = y_raw.flatten() # flattening the y to be a 1D array of labels
 
-pines_list =[i for i in pines_list if i!=0]
+mask = y_flat != 0 # we want to take out the zeros from both the y and x datasets
+x_final = x_transposed[mask]
+y_final = y_flat[mask]
 
-# converting the dataset into a pandas data frame
-newData = list(zip(pines_list[0], pines_list[1])) # both x and y of the data set
-columns = ['pines_x', 'pines_y']
-df = pd.DataFrame(newData, columns=columns)
-print(df.head())
+
 # for PCA, plot the explained variance for all of the PCs in the dataset
+pca_full = PCA()
+pca_full.fit(x_final)
+
+# plotting the vaiance 
+
+
+# Reduced data visualization using PCA to 2 dimensions--display the new transformmed data
+
+
+# Reduce data visualization using LDA to 2 dimensions
