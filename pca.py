@@ -122,7 +122,7 @@ plt.ylabel("Linear Discriminant 2")
 plt.title("LDA of Iris Dataset (2 Dimensions)")
 plt.legend(handles=scatter.legend_elements()[0], labels=list(target_names_iris))
 plt.savefig('LDA_IRS.png')
-plt.show()
+
 
 
 # LDA Visualization for Indian Pines Dataset
